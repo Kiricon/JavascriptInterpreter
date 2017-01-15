@@ -1,8 +1,8 @@
 
 class Token {
     constructor(t, l) {
-        let type = t;
-        let literal = l;
+        this.type = t;
+        this.literal = l;
     }
 }
 
@@ -24,7 +24,7 @@ const Types = {
     LPAREN: '(',
     RPAREN: ')',
     LBRACE: '{',
-    RPAREN: '}',
+    RBRACE: '}',
 
     //Keywords
     FUNCTION:'FUNCTION',

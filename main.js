@@ -1,4 +1,3 @@
-const Token = require('./token/token').Token;
-const Types = require('./token/token').Types;
+const Lexer = require('./lexer/lexer');
 
-console.log(Types);
+let lexer = new Lexer('+=(){},;');

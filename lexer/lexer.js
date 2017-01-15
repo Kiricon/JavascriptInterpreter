@@ -1,18 +1,19 @@
-const Token = require('./token/token').Token;
-const Types = require('./token/token').Types;
+const Token = require('./../token/token').Token;
+const Types = require('./../token/token').Types;
 
 class Lexer {
     constructor(string) {
-        let input = string;
-        let position = 0;
-        let readPosition = 0;
-        let ch = '';
-        let tokens = [];
+        this.input = string;
+        this.position = 0;
+        this.readPosition = 0;
+        this.ch = '';
+        this.tokens = [];
         this.readChar()
+        this.nextToken();
     }
 
     readChar() {
-        if(this.readPosition > this.input.length) {
+        if(this.readPosition >= this.input.length) {
             this.ch = 0;
         }else {
             this.ch = this.input[this.readPosition]
@@ -49,15 +50,18 @@ class Lexer {
                 token = new Token(Types.RBRACE, this.ch);
                 break;
             case 0:
-                token = new Token(Type.EOF, '');
-
-            if(token.type != Type.EOF){
-                this.readChar();
-                this.tokens.push(token);
-                this.nextToken();
-            }else {
-                console.log(this.tokens);
-            }
+                token = new Token(Types.EOF, '');
+        }
+            
+        if(token.type != Types.EOF){
+            this.readChar();
+            this.tokens.push(token);
+            this.nextToken();
+        }else {
+            console.log(this.tokens);
         }
     }
 }
+
+
+module.exports = Lexer;
