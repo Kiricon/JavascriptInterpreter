@@ -51,6 +51,14 @@ class Lexer {
                 break;
             case 0:
                 token = new Token(Types.EOF, '');
+                break;
+            default:
+                if(this.isLetter(this.ch)) {
+                    token = new Token(Types.IDENT, this.readIdentifier());
+                }else {
+                    token = new Token(Types.ILLEGAL, '');
+                }
+            
         }
             
         if(token.type != Types.EOF){
@@ -60,6 +68,23 @@ class Lexer {
         }else {
             console.log(this.tokens);
         }
+    }
+
+    isLetter(currentChar) {
+        if (((currentChar > '@')&&(currentChar < '[')) || ((currentChar > '`')&& (currentChar<'{')))
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    readIdentifier() {
+        let position = this.position;
+        while(this.isLetter(this.ch)) {
+            this.readChar();
+        }
+        return this.input.substring(position, this.position);
     }
 }
 
