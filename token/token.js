@@ -31,4 +31,9 @@ const Types = {
     LET: 'LET',
 }
 
-module.exports = {Token, Types};
+const Keywords = {
+    'func': Types.FUNCTION,
+    'let': Types.LET
+}
+
+module.exports = {Token, Types, Keywords};

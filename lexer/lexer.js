@@ -1,5 +1,6 @@
 const Token = require('./../token/token').Token;
 const Types = require('./../token/token').Types;
+const Keywords = require('./../token/token').Keywords;
 
 class Lexer {
     constructor(string) {
@@ -54,7 +55,8 @@ class Lexer {
                 break;
             default:
                 if(this.isLetter(this.ch)) {
-                    token = new Token(Types.IDENT, this.readIdentifier());
+                    let literal = this.readIdentifier();
+                    token = new Token(this.identifierType(literal), literal);
                 }else {
                     token = new Token(Types.ILLEGAL, '');
                 }
@@ -86,6 +88,15 @@ class Lexer {
         }
         return this.input.substring(position, this.position);
     }
+
+    identifierType(identifier){
+        if(Keywords[identifier] != undefined) {
+            return Keywords[identifier];
+        }else {
+            return Types.IDENT;
+        }
+    }
+
 }
 
 
