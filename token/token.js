@@ -1,7 +1,8 @@
 
 class Token {
-    constructor() {
-        let type, Literal;
+    constructor(t, l) {
+        let type = t;
+        let literal = l;
     }
 }
 
