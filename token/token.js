@@ -36,11 +36,21 @@ const Types = {
     //Keywords
     FUNCTION:'FUNCTION',
     LET: 'LET',
+    TRUE: 'TRUE',
+    FALSE: 'FALSE',
+    IF: 'IF',
+    ELSE: 'ELSE',
+    RETURN: 'RETURN',
 }
 
 const Keywords = {
     'func': Types.FUNCTION,
-    'let': Types.LET
+    'let': Types.LET,
+    'true': Types.TRUE,
+    'false': Types.FALSE,
+    'if': Types.IF,
+    'else': Types.ELSE,
+    'return': Types.RETURN,
 }
 
 module.exports = {Token, Types, Keywords};
