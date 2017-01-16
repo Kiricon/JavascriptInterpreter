@@ -29,10 +29,10 @@ class Lexer {
         this.skipWhiteSpace();
         switch(this.ch) {
             case '=':
-                if(this.peekChar() == '='){
+                if(this.peekChar() == '=') {
                     this.readChar();
                     token = new Token(Types.EQ, '==');
-                }else{
+                }else {
                     token = new Token(Types.ASSIGN, this.ch);
                 }
                 break;
@@ -43,10 +43,10 @@ class Lexer {
                 token = new Token(Types.MINUS, this.ch);
                 break;
             case '!':
-                if(this.peekChar() == '='){
+                if(this.peekChar() == '=') {
                     this.readChar();
                     token = new Token(Types.NOT_EQ, '!=');
-                }else{
+                }else {
                     token = new Token(Types.BANG, this.ch);
                 }
                 break;
