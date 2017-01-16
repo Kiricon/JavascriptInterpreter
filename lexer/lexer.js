@@ -29,7 +29,12 @@ class Lexer {
         this.skipWhiteSpace();
         switch(this.ch) {
             case '=':
-                token = new Token(Types.ASSIGN, this.ch);
+                if(this.peekChar() == '='){
+                    this.readChar();
+                    token = new Token(Types.EQ, '==');
+                }else{
+                    token = new Token(Types.ASSIGN, this.ch);
+                }
                 break;
             case '+':
                 token = new Token(Types.PLUS, this.ch);
@@ -38,7 +43,12 @@ class Lexer {
                 token = new Token(Types.MINUS, this.ch);
                 break;
             case '!':
-                token = new Token(Types.BANG, this.ch);
+                if(this.peekChar() == '='){
+                    this.readChar();
+                    token = new Token(Types.NOT_EQ, '!=');
+                }else{
+                    token = new Token(Types.BANG, this.ch);
+                }
                 break;
             case '/':
                 token = new Token(Types.SLASH, this.ch);
@@ -143,6 +153,14 @@ class Lexer {
         while(this.ch == ' ' || this.ch == '\t' || this.ch == '\n' || this.ch == '\r'){
             console.log(this.ch);
             this.readChar();
+        }
+    }
+
+    peekChar(){
+        if(this.readPosition >= this.input.length){
+            return -1;
+        }else {
+            return this.input[this.readPosition];
         }
     }
 
