@@ -15,7 +15,7 @@ class Lexer {
 
     readChar() {
         if(this.readPosition >= this.input.length) {
-            this.ch = 0;
+            this.ch = -1;
         }else {
             this.ch = this.input[this.readPosition]
         }
@@ -26,6 +26,7 @@ class Lexer {
     nextToken() {
         let token;
         let skipChar = false;
+        this.skipWhiteSpace();
         switch(this.ch) {
             case '=':
                 token = new Token(Types.ASSIGN, this.ch);
@@ -51,15 +52,16 @@ class Lexer {
             case '}':
                 token = new Token(Types.RBRACE, this.ch);
                 break;
-            case 0:
+            case -1:
                 token = new Token(Types.EOF, '');
                 break;
             default:
-                skipChar = true;
                 if(this.isLetter(this.ch)) {
+                    skipChar = true;
                     let literal = this.readIdentifier();
                     token = new Token(this.identifierType(literal), literal);
                 }else if(this.isNumber(this.ch)){
+                    skipChar = true;
                     let literal = this.readNumber();
                     token = new Token(Types.INT, literal);
                 }else {
@@ -89,7 +91,7 @@ class Lexer {
     }
 
     isNumber(ch){
-        return 0 <= ch && ch <= '9';
+        return '0' <= ch && ch <= '9';
     }
 
     readIdentifier() {
@@ -113,6 +115,13 @@ class Lexer {
             return Keywords[identifier];
         }else {
             return Types.IDENT;
+        }
+    }
+
+    skipWhiteSpace(){
+        while(this.ch == ' ' || this.ch == '\t' || this.ch == '\n' || this.ch == '\r'){
+            console.log(this.ch);
+            this.readChar();
         }
     }
 
