@@ -17,6 +17,13 @@ const Types = {
     //Operators
     ASSIGN: '=',
     PLUS: '+',
+    MINUS: '-',
+    BANG: '!',
+    ASTERISK: '*',
+    SLASH: '/',
+    LT: '<',
+    GT: '>',
+
 
     //Delimiters
     COMMA: ',',
