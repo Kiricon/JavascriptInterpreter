@@ -23,8 +23,8 @@ class Parser {
      */
     nextToken() {
         this.curToken = this.peekToken;
-        this.peekToken = this.lexer.tokens[i];
-        i++;
+        this.peekToken = this.lexer.tokens[this.i];
+        this.i++;
     }
 
     /**
