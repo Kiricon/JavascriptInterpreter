@@ -13,7 +13,7 @@ class Node {
 }
 
 class Statement extends Node {
-    constructor(token){
+    constructor(token) {
         super(token);
     }
     statementNode() {
@@ -22,6 +22,9 @@ class Statement extends Node {
 }
 
 class Expression extends Node {
+    constructor(token) {
+        super(token)
+    }
     expressionNode() {
         return 'hotdog';
     }
