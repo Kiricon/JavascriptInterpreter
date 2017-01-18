@@ -14,6 +14,7 @@ class Parser {
         this.peekToken;
         this.i = 0;
         this.statements = [];
+        this.errors = [];
         this.nextToken();
         this.nextToken();
         this.parse();
@@ -39,11 +40,15 @@ class Parser {
             }
             this.nextToken();
         }
-        console.log(this.statements);
+        if(this.errors.length == 0) {
+            console.log(this.statements);
+        }else {
+            console.log(this.errors);
+        }
     }
     
     parseStatement() {
-        switch(this.curToken.type){
+        switch(this.curToken.type) {
             case Types.LET:
                 return this.parseLetStatement();
             default:
@@ -54,17 +59,17 @@ class Parser {
     parseLetStatement() {
         let statement = new Ast.LetStatement();
 
-        if(!this.expectPeek(Types.IDENT)){
+        if(!this.expectPeek(Types.IDENT)) {
             return null;
         }
 
         statement.name = new Ast.Identifier(this.curToken, this.curToken.literal);
 
-        if(!this.expectPeek(Types.ASSIGN)){
+        if(!this.expectPeek(Types.ASSIGN)) {
             return null;
         }
 
-        while(!this.curTokenIs(Types.SEMICOLON)){
+        while(!this.curTokenIs(Types.SEMICOLON)) {
             this.nextToken();
         }
 
@@ -84,6 +89,7 @@ class Parser {
             this.nextToken()
             return true;
         }else {
+            this.errors.push('Expected: '+t+', but got:' + this.peekToken.type);
             return false;
         }
     }
