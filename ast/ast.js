@@ -25,8 +25,13 @@ class Expression extends Node {
 }
 
 class LetStatement extends Statement {
-    constructor() {
+    constructor(token) {
+        super(token);
         this.name; //Identifier
         this.value; //Expression
     }
+}
+
+module.exports = {
+    LetStatement: LetStatement,
 }

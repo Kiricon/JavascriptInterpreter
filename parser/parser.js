@@ -1,6 +1,7 @@
 const Lexer = require('./lexer/lexer');
 const Token = require('./../token/token').Token;
 const Types = require('./../token/token').Types;
+const Ast = require('./../ast/ast');
 
 /**
  * This is where we parse our tokens in to our 
@@ -39,5 +40,17 @@ class Parser {
             this.nextToken();
         }
     }
+    
+    parseStatement() {
+        switch(this.curToken.type){
+            case Types.LET:
+                return this.parseLetStatement();
+            default:
+            return null;
+        }
+    }
 
+    parseLetStatement() {
+        let statement = new Ast.LetStatement();
+    }
 }
