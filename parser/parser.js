@@ -15,6 +15,8 @@ class Parser {
         this.i = 0;
         this.statements = [];
         this.errors = [];
+        this.prefixParseFunctions = [];
+        this.infixParseFunctions = [];
         this.nextToken();
         this.nextToken();
         this.parse();
@@ -107,6 +109,14 @@ class Parser {
             this.errors.push('Expected: '+t+', but got:' + this.peekToken.type);
             return false;
         }
+    }
+
+    registerPrefix(type, func) {
+        this.prefixParseFunctions[type] = func;
+    }
+
+    registerInfix(type, func) {
+        this.prefixParseFunctions[type] = func;
     }
 }
 

@@ -40,8 +40,15 @@ class LetStatement extends Statement {
 
 class ReturnStatement extends Statement {
     constructor(token){
-        super(token)
+        super(token);
         this.returnValue; //Expression
+    }
+}
+
+class ExpressionStatement extends Statement {
+    constructor(token) {
+        super(token);
+        this.expression; //expression
     }
 }
 
@@ -53,6 +60,7 @@ class Identifier {
 }
 
 module.exports = {
+    Expression: Expression,
     LetStatement: LetStatement,
     Identifier: Identifier,
     ReturnStatement: ReturnStatement,
