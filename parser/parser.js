@@ -52,5 +52,38 @@ class Parser {
 
     parseLetStatement() {
         let statement = new Ast.LetStatement();
+
+        if(!this.expectPeek(Types.IDENT)){
+            return null;
+        }
+
+        statement.name = new Ast.Identifier(this.curToken, this.curToken.literal);
+
+        if(!this.expectPeek(Types.ASSIGN)){
+            return null;
+        }
+
+        while(!this.curTokenIs(Types.SEMICOLON)){
+            this.nextToken();
+        }
+
+        return statement;
+    }
+
+    curTokenIs(type) {
+        return this.curToken.type == type;
+    }
+
+    peekTokenIs(type) {
+        return this.peekToken.type == type;
+    }
+
+    expectPeek(t) {
+        if(this.peekTokenIs(t)) {
+            this.nextToken()
+            return true;
+        }else {
+            return false;
+        }
     }
 }
