@@ -32,6 +32,14 @@ class LetStatement extends Statement {
     }
 }
 
+class Identifier {
+    constructor(t, string){
+        this.token = t;
+        this.value = string;
+    }
+}
+
 module.exports = {
     LetStatement: LetStatement,
+    Identifier: Identifier,
 }
