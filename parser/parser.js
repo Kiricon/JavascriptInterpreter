@@ -1,4 +1,4 @@
-const Lexer = require('./lexer/lexer');
+const Lexer = require('./../lexer/lexer');
 const Token = require('./../token/token').Token;
 const Types = require('./../token/token').Types;
 const Ast = require('./../ast/ast');
@@ -39,6 +39,7 @@ class Parser {
             }
             this.nextToken();
         }
+        console.log(this.statements);
     }
     
     parseStatement() {
@@ -87,3 +88,5 @@ class Parser {
         }
     }
 }
+
+module.exports = Parser;

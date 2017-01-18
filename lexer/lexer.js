@@ -108,7 +108,7 @@ class Lexer {
             this.tokens.push(token);
             this.nextToken();
         }else {
-            console.log(this.tokens);
+            this.tokens.push(token);
         }
     }
 
