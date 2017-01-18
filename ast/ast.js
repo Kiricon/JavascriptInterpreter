@@ -4,7 +4,7 @@ const Types = require('./../token/token').Types;
 class Node {
 
     constructor(token) {
-        this.token;
+        this.token = token;
     }
 
     tokenLiteral() {
@@ -13,6 +13,9 @@ class Node {
 }
 
 class Statement extends Node {
+    constructor(token){
+        super(token);
+    }
     statementNode() {
         return 'hotdog';
     }
@@ -32,6 +35,13 @@ class LetStatement extends Statement {
     }
 }
 
+class ReturnStatement extends Statement {
+    constructor(token){
+        super(token)
+        this.returnValue; //Expression
+    }
+}
+
 class Identifier {
     constructor(t, string){
         this.token = t;
@@ -42,4 +52,5 @@ class Identifier {
 module.exports = {
     LetStatement: LetStatement,
     Identifier: Identifier,
+    ReturnStatement: ReturnStatement,
 }

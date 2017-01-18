@@ -6,9 +6,10 @@ if(process.argv.indexOf('-i') > -1){
     Repl.start();
 }else {
     let parser = new Parser(`
-        let x = 5;
-        let y = 10;
-        let foobar = 838383;
+        let hotdog = 111;
+        return 5;
+        return 10;
+        return 838383;
     `);
 }
 

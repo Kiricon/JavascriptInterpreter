@@ -41,7 +41,9 @@ class Parser {
             this.nextToken();
         }
         if(this.errors.length == 0) {
-            console.log(this.statements);
+           this.statements.forEach(stat => {
+               console.log(stat);
+           });
         }else {
             console.log(this.errors);
         }
@@ -51,13 +53,15 @@ class Parser {
         switch(this.curToken.type) {
             case Types.LET:
                 return this.parseLetStatement();
+            case Types.RETURN:
+                return this.parseReturnStatement();
             default:
             return null;
         }
     }
 
     parseLetStatement() {
-        let statement = new Ast.LetStatement();
+        let statement = new Ast.LetStatement(this.curToken);
 
         if(!this.expectPeek(Types.IDENT)) {
             return null;
@@ -68,6 +72,17 @@ class Parser {
         if(!this.expectPeek(Types.ASSIGN)) {
             return null;
         }
+
+        while(!this.curTokenIs(Types.SEMICOLON)) {
+            this.nextToken();
+        }
+
+        return statement;
+    }
+
+    parseReturnStatement() {
+        let statement = new Ast.ReturnStatement(this.curToken);
+        this.nextToken();
 
         while(!this.curTokenIs(Types.SEMICOLON)) {
             this.nextToken();
