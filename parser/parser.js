@@ -25,6 +25,7 @@ class Parser {
         this.errors = [];
         this.prefixParseFunctions = {};
         this.registerPrefix(Types.IDENT, this.parseIdentifier);
+        this.registerPrefix(Types.INT, this.parseIntegerLiteral);
         this.infixParseFunctions = {};
         this.nextToken();
         this.nextToken();
@@ -154,6 +155,10 @@ class Parser {
 
     parseIdentifier(ctx) {
         return new Ast.Identifier(ctx.curToken, ctx.curToken.literal);
+    }
+
+    parseIntegerLiteral(ctx) {
+        return new Ast.IntegerLiteral(ctx.curToken, parseInt(ctx.curToken.literal));
     }
 }
 

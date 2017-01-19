@@ -59,10 +59,18 @@ class Identifier {
     }
 }
 
+class IntegerLiteral extends Node {
+    constructor(token, value) {
+        super(token);
+        this.value = value; //int
+    }
+}
+
 module.exports = {
     Expression: Expression,
     LetStatement: LetStatement,
     Identifier: Identifier,
     ReturnStatement: ReturnStatement,
     ExpressionStatement: ExpressionStatement,
+    IntegerLiteral: IntegerLiteral,
 }
