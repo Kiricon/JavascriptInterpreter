@@ -3,6 +3,14 @@ const Token = require('./../token/token').Token;
 const Types = require('./../token/token').Types;
 const Ast = require('./../ast/ast');
 
+const LOWEST = 1;
+const EQUALS = 2;       // ==
+const LESSGREATER = 3;  // > or <
+const SUM = 4;          // +
+const PRODUCT = 5;      // *
+const PREFIX = 6;       // -X or !X
+const CALL = 7;         // myFunction(X)
+
 /**
  * This is where we parse our tokens in to our 
  * abstract syntax tree
@@ -15,8 +23,9 @@ class Parser {
         this.i = 0;
         this.statements = [];
         this.errors = [];
-        this.prefixParseFunctions = [];
-        this.infixParseFunctions = [];
+        this.prefixParseFunctions = {};
+        this.registerPrefix(Types.IDENT, this.parseIdentifier);
+        this.infixParseFunctions = {};
         this.nextToken();
         this.nextToken();
         this.parse();
@@ -58,7 +67,7 @@ class Parser {
             case Types.RETURN:
                 return this.parseReturnStatement();
             default:
-            return null;
+                return this.parseExpressionStatement();
         }
     }
 
@@ -117,6 +126,34 @@ class Parser {
 
     registerInfix(type, func) {
         this.prefixParseFunctions[type] = func;
+    }
+
+    parseExpressionStatement() {
+        let statement = new Ast.ExpressionStatement(this.curToken);
+
+        statement.expression = this.parseExpression(LOWEST);
+
+        if(this.peekTokenIs(Types.SEMICOLON)) {
+            this.nextToken();
+        }
+
+        return statement;
+    }
+
+    parseExpression(precedence) {
+        let prefix = this.prefixParseFunctions[this.curToken.type];
+
+        if(prefix == null) {
+            return null;
+        }
+
+        let leftExp = prefix(this);
+
+        return leftExp;
+    }
+
+    parseIdentifier(ctx) {
+        return new Ast.Identifier(ctx.curToken, ctx.curToken.literal);
     }
 }
 

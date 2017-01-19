@@ -64,4 +64,5 @@ module.exports = {
     LetStatement: LetStatement,
     Identifier: Identifier,
     ReturnStatement: ReturnStatement,
+    ExpressionStatement: ExpressionStatement,
 }
